@@ -1,0 +1,27 @@
+services:
+  attacker:
+    build: ./attacker
+    cap_add: ["NET_RAW", "NET_ADMIN"]
+    networks:
+      spoofnet:
+        ipv4_address: 10.10.10.100
+
+  receiver:
+    build: ./receiver
+    cap_add: ["NET_RAW", "NET_ADMIN"]
+    networks:
+      spoofnet:
+        ipv4_address: 10.10.10.20
+
+  victim:
+    build: ./victim
+    networks:
+      spoofnet:
+        ipv4_address: 10.10.10.10
+
+networks:
+  spoofnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24
