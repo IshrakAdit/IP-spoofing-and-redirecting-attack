@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  attacker:
+    build: ./attacker
+    container_name: attacker
+    privileged: true
+    networks:
+      mynet:
+        ipv4_address: 192.168.56.10
+
+  victim:
+    build: ./victim
+    container_name: victim
+    privileged: true
+    networks:
+      mynet:
+        ipv4_address: 192.168.56.20
+    
+
+  router:
+    build: ./router
+    container_name: router
+    privileged: true
+    networks:
+      mynet:
+        ipv4_address: 192.168.56.1
+    command: ["tail", "-f", "/dev/null"]
+
+  target:
+    image: ubuntu:20.04
+    container_name: target
+    privileged: true
+    networks:
+      mynet:
+        ipv4_address: 192.168.56.100
+    command: ["tail", "-f", "/dev/null"]
+
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.56.0/24
+
