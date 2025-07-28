@@ -5,3 +5,5 @@ docker logs -f spoofing-receiver-1
 docker logs -f spoofing-victim-1
 # docker compose down -v
 # docker system prune -a --volumes -f
+
+docker build -f Dockerfile.req -t req-base .

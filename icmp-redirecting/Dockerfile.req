@@ -1,0 +1,10 @@
+FROM python:3.10-slim
+
+# Install system utilities only (Python and pip are already installed)
+RUN apt-get update && apt-get install -y libpcap-dev \
+    iputils-ping \
+    iproute2 \
+    tcpdump \
+    procps && \
+    pip install --no-cache-dir scapy
+    

@@ -1,0 +1,47 @@
+services:
+  attacker:
+    build: ./attacker
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      mynet:
+        ipv4_address: 172.28.0.10
+
+  victim:
+    build: ./victim
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      mynet:
+        ipv4_address: 172.28.0.20
+
+  router:
+    build: ./router
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    networks:
+      mynet:
+        ipv4_address: 172.28.0.30
+
+  target:
+    # image: ubuntu:20.04
+    build: ./target
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    networks:
+      mynet:
+        ipv4_address: 172.28.0.100
+    # command: ["tail", "-f", "/dev/null"]
+
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/24
