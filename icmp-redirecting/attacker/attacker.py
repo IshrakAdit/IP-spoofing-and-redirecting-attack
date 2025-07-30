@@ -13,7 +13,7 @@ print(f"[*] Router: {router_ip}")
 print(f"[*] Attacker: {attacker_ip}")
 print(f"[*] Target: {target_ip}")
 
-# Wait a bit for victim to establish initial route
+# Small wait time for victim to establish initial route
 time.sleep(5)
 print("[*] Sending ICMP redirect packets...")
 
